@@ -1,0 +1,154 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    font-family: Raleway;
+    overflow: hidden;
+}
+
+body {
+    margin: 0 5% 3%;
+
+    background: rgb(143, 143, 143);
+}
+
+h1 {
+    font-size: 3rem;
+    cursor: default;
+    display: flex;
+}
+
+h1 div {
+    padding-right: 20px;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+}
+
+h1 span:hover {
+    font-size: 4rem;
+}
+
+h1, h2, h3, span, button {
+    color: rgb(143, 143, 143); 
+    mix-blend-mode: difference;
+}
+
+h2 {
+    font-size: 2rem;
+    text-decoration: underline;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-style: italic;
+}
+
+button {
+    font-family: Raleway;
+}
+
+.slide {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+}
+
+.slide .bg {
+    position: fixed;
+    width: 120%;
+    top: -10%;
+    left: -10%;
+    z-index: -1000;
+
+    filter: blur(8px);
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    margin: auto;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.container .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.container .left button {
+    background: none;
+    border: 1px solid rgb(143, 143, 143);
+    cursor: pointer;
+    font-size: 2.5rem;
+}
+
+.container img {
+    height: 30%;
+    max-width: 50%;
+    max-height: 600px;
+
+    border: 2px solid white;
+}
+
+.slide-off {
+    animation: slide-off 0.75s forwards ease-in;
+}
+
+.bg-off {
+    animation: bg-off 0.75s forwards ease-in;
+}
+
+.slide-on {
+    animation: slide-on 0.75s forwards ease-in;
+}
+
+.bg-on {
+    animation: bg-on 0.75s forwards ease-in;
+}
+
+.hide {
+    display: none;
+}
+
+@keyframes slide-off {
+    from {
+        left: 0;
+    }
+    to {
+        left: -160%;
+    }
+}
+
+@keyframes bg-off {
+    from {
+        left: -10%;
+    }
+    to {
+        left: -120%;
+    }
+}
+
+@keyframes slide-on {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes bg-on {
+    from {
+        left: 120%;
+    }
+    to {
+        left: -10%;
+    }
+}

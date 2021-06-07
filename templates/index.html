@@ -4,9 +4,88 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
     <title>Kevin Quinn</title>
 </head>
 <body>
-    <h1>Kevin Quinn</h1>
+    <h1>
+        <div>
+            {% for i in "Kevin" %}
+                <span>{{ i }}</span>
+            {% endfor %}            
+        </div>
+        <div>
+            {% for i in "Quinn" %}
+                <span>{{ i }}</span>
+            {% endfor %}
+        </div>
+    </h1>
+    {% for pic in pics %}
+    <div 
+        {% if pic["date"] == pics[0]["date"] %}
+            class="slide"
+        {% else %}
+            class="slide hide"
+        {% endif %}
+        id="slide-{{ pic['index'] }}"
+    >
+        <img 
+            class="bg"
+            id="bg-{{ pic['index'] }}""
+            src="{{ url_for('static', filename='img/' + pic['filename']) }}" 
+            alt="Background"
+        >
+        <div class="container">
+            <div class="left">
+                <div class="text" id="text-{{ pic['index'] }}">
+                    <h2>{{ pic["name"] }}</h2>
+                    <h3>{{ pic["date"] }}</h3>    
+                </div>
+                <button onclick="changeSlide(1)">Next</button>
+            </div>
+            <img 
+                id="img-{{ pic['index'] }}"
+                src="{{ url_for('static', filename='img/' + pic['filename']) }}" 
+                alt="Art piece"
+            >
+        </div>
+    </div>
+    {% endfor %}
 </body>
+<script>
+    let currentSlideIndex = 1;
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function changeSlide(x) {
+        let lastSlide = false;
+        if (currentSlideIndex === parseInt("{{ pics[-1]['index'] }}")) {
+            x = -(parseInt("{{ pics[-1]['index'] }}") - 1);
+            lastSlide = true;
+        }
+
+        const currentSlide = document.getElementById(`slide-${currentSlideIndex}`);
+        currentSlide.className = "slide slide-off";
+        const currentBg = document.getElementById(`bg-${currentSlideIndex}`);
+        currentBg.className = "bg bg-off";
+        const nextSlide = document.getElementById(`slide-${currentSlideIndex + x}`);
+        nextSlide.className = "slide slide-on";
+        const nextBg = document.getElementById(`bg-${currentSlideIndex + x}`);
+        nextBg.className = "bg bg-on";
+
+        await sleep(750);
+
+        currentSlide.className = "hide";
+        currentBg.className = "hide";
+        if (lastSlide) {
+            currentSlideIndex = 1;
+        } else {
+            currentSlideIndex ++;
+        }
+    }
+</script>
 </html>
