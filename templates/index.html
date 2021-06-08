@@ -5,23 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+    <link rel="mask-icon" href="/static/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/static/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <title>Kevin Quinn</title>
 </head>
 <body>
-    <h1>
-        <div>
-            {% for i in "Kevin" %}
-                <span>{{ i }}</span>
-            {% endfor %}            
-        </div>
-        <div>
-            {% for i in "Quinn" %}
-                <span>{{ i }}</span>
+    <header>
+        <svg onclick="toggleNav()" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgb(143, 143, 143)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        <h1>
+            <div>
+                {% for i in "Kevin" %}
+                    <span>{{ i }}</span>
+                {% endfor %}
+            </div>
+            <div>
+                {% for i in "Quinn" %}
+                    <span>{{ i }}</span>
+                {% endfor %}
+            </div>
+        </h1>        
+    </header>
+    <nav>
+        <div class="links" id="links">
+            {% for year in years %}
+                <h4>{{ year }}</h4>
+                {% for pic in pics %}
+                    {% if year == pic["date"] %}
+                        <button onclick="jumpToSlide(`{{ pic['index'] }}`)"><span>{{ pic["name"] }}</span></button>
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
         </div>
-    </h1>
+    </nav>    
     {% for pic in pics %}
     <div 
         {% if pic["date"] == pics[0]["date"] %}
@@ -37,13 +62,16 @@
             src="{{ url_for('static', filename='img/' + pic['filename']) }}" 
             alt="Background"
         >
-        <div class="container">
+        <div class="container" id="container-{{ pic['index'] }}">
             <div class="left">
                 <div class="text" id="text-{{ pic['index'] }}">
                     <h2>{{ pic["name"] }}</h2>
                     <h3>{{ pic["date"] }}</h3>    
                 </div>
-                <button onclick="changeSlide(1)">Next</button>
+                <div>
+                    <button onclick="changeSlide(-1)">Previous</button>
+                    <button onclick="changeSlide(1)">Next</button>
+                </div>
             </div>
             <img 
                 id="img-{{ pic['index'] }}"
@@ -52,40 +80,116 @@
             >
         </div>
     </div>
-    {% endfor %}
+    {% endfor %}        
 </body>
 <script>
     let currentSlideIndex = 1;
+    let navOpen = false;
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    async function jumpToSlide(x) {
+        toggleNav()
+        x = parseInt(x);
+
+        if (currentSlideIndex === x) return;
+
+        const currentSlide = document.getElementById(`slide-${currentSlideIndex}`);
+        currentSlide.className = "slide slide-off-up";
+        const currentBg = document.getElementById(`bg-${currentSlideIndex}`);
+        currentBg.className = "bg bg-off-up";
+        const nextSlide = document.getElementById(`slide-${x}`);
+        nextSlide.className = "slide slide-on-up";
+        const nextBg = document.getElementById(`bg-${x}`);
+        nextBg.className = "bg bg-on-up top-layer";
+
+        await sleep(750);
+        currentSlide.className = "slide hide";
+        nextBg.className = "bg bg-on-up";
+        currentSlideIndex = x;
+    }
+
+    async function toggleNav() {
+        const links = document.getElementById("links");
+        const slide = document.getElementById(`container-${currentSlideIndex}`);
+
+        if (navOpen) {
+            links.animate([
+                {left: "0"},
+                {left: "-350px"}
+            ], {
+                duration: 250,
+                easing: "ease-in",
+                fill: "forwards"
+            });
+            slide.animate([
+                {left: "200px"},
+                {left: "0"}
+            ], {
+                duration: 250,
+                easing: "ease-in",
+                fill: "forwards"
+            });
+        }
+        else {
+            links.animate([
+                { left: "-350px" },
+                { left: "0" }
+            ], {
+                duration: 250,
+                easing: "ease-out",
+                fill: "forwards"
+            });
+            slide.animate([
+                {left: "0"},
+                {left: "200px"}
+            ], {
+                duration: 250,
+                easing: "ease-out",
+                fill: "forwards"
+            });
+        }
+
+        navOpen = !navOpen;
+    }
+
     async function changeSlide(x) {
-        let lastSlide = false;
-        if (currentSlideIndex === parseInt("{{ pics[-1]['index'] }}")) {
-            x = -(parseInt("{{ pics[-1]['index'] }}") - 1);
-            lastSlide = true;
+        if (navOpen) {
+            toggleNav();
+        }
+
+        const y = parseInt("{{ pics[-1]['index'] }}");
+        let startOrEnd = null;
+        if (currentSlideIndex === y && x === 1) {
+            x = -(y - 1);
+        }
+        else if (currentSlideIndex === 1 && x === -1) {
+            x = (y - 1);
         }
 
         const currentSlide = document.getElementById(`slide-${currentSlideIndex}`);
-        currentSlide.className = "slide slide-off";
+        currentSlide.className = `slide slide-off${
+            x === -1 || (currentSlideIndex === 1 && x !== 1) ? '-rev' : ''
+        }`;
         const currentBg = document.getElementById(`bg-${currentSlideIndex}`);
-        currentBg.className = "bg bg-off";
+        currentBg.className = `bg bg-off${
+            x === -1 || (currentSlideIndex === 1 && x !== 1) ? '-rev' : ''
+        }`;
         const nextSlide = document.getElementById(`slide-${currentSlideIndex + x}`);
-        nextSlide.className = "slide slide-on";
+        nextSlide.className = `slide slide-on${
+            x === -1 || (currentSlideIndex === 1 && x !== 1) ? '-rev' : ''
+        }`;
         const nextBg = document.getElementById(`bg-${currentSlideIndex + x}`);
-        nextBg.className = "bg bg-on";
+        nextBg.className = `bg bg-on${
+            x === -1 || (currentSlideIndex === 1 && x !== 1) ? '-rev' : ''
+        }`;
 
         await sleep(750);
 
-        currentSlide.className = "hide";
-        currentBg.className = "hide";
-        if (lastSlide) {
-            currentSlideIndex = 1;
-        } else {
-            currentSlideIndex ++;
-        }
+        currentSlide.className = "slide hide";
+        currentSlideIndex += x;
     }
 </script>
 </html>

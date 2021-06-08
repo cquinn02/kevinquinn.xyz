@@ -1,0 +1,283 @@
+.slide-off {
+    -webkit-animation: slide-off 0.75s forwards ease-in;
+            animation: slide-off 0.75s forwards ease-in;
+}
+
+.slide-off-rev {
+    -webkit-animation: slide-off-rev 0.75s forwards ease-in;
+            animation: slide-off-rev 0.75s forwards ease-in;
+}
+
+.slide-off-up {
+    -webkit-animation: slide-off-up 0.75s forwards ease-in;
+            animation: slide-off-up 0.75s forwards ease-in;
+}
+
+.bg-off {
+    -webkit-animation: bg-off 0.75s forwards ease-in;
+            animation: bg-off 0.75s forwards ease-in;
+}
+
+.bg-off-rev {
+    -webkit-animation: bg-off-rev 0.75s forwards ease-in;
+            animation: bg-off-rev 0.75s forwards ease-in;
+}
+
+.bg-off-up {
+    -webkit-animation: bg-off-up 0.75s forwards ease-in;
+            animation: bg-off-up 0.75s forwards ease-in;
+}
+
+.slide-on {
+    -webkit-animation: slide-on 0.75s forwards ease-in;
+            animation: slide-on 0.75s forwards ease-in;
+}
+
+.slide-on-rev {
+    -webkit-animation: slide-on-rev 0.75s forwards ease-in;
+            animation: slide-on-rev 0.75s forwards ease-in;
+}
+
+.slide-on-up {
+    -webkit-animation: slide-on-up 0.75s forwards ease-in;
+            animation: slide-on-up 0.75s forwards ease-in;
+}
+
+.bg-on {
+    -webkit-animation: bg-on 0.75s forwards ease-in;
+            animation: bg-on 0.75s forwards ease-in;
+}
+
+.bg-on-rev {
+    -webkit-animation: bg-on-rev 0.75s forwards ease-in;
+            animation: bg-on-rev 0.75s forwards ease-in;
+}
+
+.bg-on-up {
+    -webkit-animation: bg-on-up 0.75s forwards ease-in;
+            animation: bg-on-up 0.75s forwards ease-in;
+}
+
+.top-layer {
+    z-index: -500 !important;
+}
+
+.hide {
+    display: none;
+}
+
+@-webkit-keyframes slide-off {
+    from {
+        left: 0;
+    }
+    to {
+        left: -160%;
+    }
+}
+
+@keyframes slide-off {
+    from {
+        left: 0;
+    }
+    to {
+        left: -160%;
+    }
+}
+
+@-webkit-keyframes slide-off-rev {
+    from {
+        left: 0;
+    }
+    to {
+        left: 160%;
+    }
+}
+
+@keyframes slide-off-rev {
+    from {
+        left: 0;
+    }
+    to {
+        left: 160%;
+    }
+}
+
+@-webkit-keyframes slide-off-up {
+    from {
+        top: 128.333px;
+    }
+    to {
+        top: calc(-100% - 128.333px );
+    }
+}
+
+@keyframes slide-off-up {
+    from {
+        top: 128.333px;
+    }
+    to {
+        top: calc(-100% - 128.333px );
+    }
+}
+
+@-webkit-keyframes bg-off {
+    from {
+        left: -10%;
+    }
+    to {
+        left: -120%;
+    }
+}
+
+@keyframes bg-off {
+    from {
+        left: -10%;
+    }
+    to {
+        left: -120%;
+    }
+}
+
+@-webkit-keyframes bg-off-rev {
+    from {
+        left: -10%;
+    }
+    to {
+        left: 110%;
+    }
+}
+
+@keyframes bg-off-rev {
+    from {
+        left: -10%;
+    }
+    to {
+        left: 110%;
+    }
+}
+
+@-webkit-keyframes bg-off-up {
+    from {
+        top: -10%;
+    }
+    to {
+        top: -110%;
+    }
+}
+
+@keyframes bg-off-up {
+    from {
+        top: -10%;
+    }
+    to {
+        top: -110%;
+    }
+}
+
+@-webkit-keyframes slide-on {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slide-on {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@-webkit-keyframes slide-on-rev {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes slide-on-rev {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@-webkit-keyframes slide-on-up {
+    from {
+        top: calc(100% + 128.333px);
+    }
+    to {
+        top: 128.333px;
+    }
+}
+
+@keyframes slide-on-up {
+    from {
+        top: calc(100% + 128.333px);
+    }
+    to {
+        top: 128.333px;
+    }
+}
+
+@-webkit-keyframes bg-on {
+    from {
+        left: 110%;
+    }
+    to {
+        left: -10%;
+    }
+}
+
+@keyframes bg-on {
+    from {
+        left: 110%;
+    }
+    to {
+        left: -10%;
+    }
+}
+
+@-webkit-keyframes bg-on-rev {
+    from {
+        left: -130%;
+    }
+    to {
+        left: -10%;
+    }
+}
+
+@keyframes bg-on-rev {
+    from {
+        left: -130%;
+    }
+    to {
+        left: -10%;
+    }
+}
+
+@-webkit-keyframes bg-on-up {
+    from {
+        top: 110%;
+    }
+    to {
+        top: -10%;
+    }
+}
+
+@keyframes bg-on-up {
+    from {
+        top: 110%;
+    }
+    to {
+        top: -10%;
+    }
+}

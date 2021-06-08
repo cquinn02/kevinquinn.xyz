@@ -6,8 +6,10 @@ app = Flask("Portfolio")
 
 @app.route("/")
 def index():
+    data = get_pics()
     return render_template("index.html",
-        pics=get_pics(),
+        pics=data[0],
+        years=data[1]
     )
 
 

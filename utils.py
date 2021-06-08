@@ -17,5 +17,12 @@ def get_pics():
         })
         count += 1
 
-    print(info)
-    return info
+    years = [i["date"] for i in info]
+    unique_years = []
+    for i in range(len(years)):
+        if i == 0:
+            pass
+        if years[i] != years[i - 1]:
+            unique_years.append(years[i])
+    
+    return info, unique_years
