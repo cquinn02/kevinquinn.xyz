@@ -13,6 +13,11 @@ body {
     background: rgb(143, 143, 143);
 }
 
+h1, h2, h3, h4, span, button {
+    color: rgb(143, 143, 143); 
+    mix-blend-mode: difference;
+}
+
 header {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -55,15 +60,17 @@ svg {
     height: 75%;
     width: 250px;
     padding-bottom: 30px;
-
-    
 }
 
 .links h4 {
     margin: 20px 0 10px;
 
     font-style: italic;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    color: black;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 
 .links button {
@@ -72,6 +79,11 @@ svg {
 
     cursor: pointer;
     text-decoration: underline;
+}
+
+.links button span {
+    color: black;
+    mix-blend-mode: unset;
 }
 
 h1 {
@@ -96,11 +108,6 @@ h1 div {
 
 h1 span:hover {
     font-size: 4rem;
-}
-
-h1, h2, h3, h4, span, button {
-    color: rgb(143, 143, 143); 
-    mix-blend-mode: difference;
 }
 
 h2 {
