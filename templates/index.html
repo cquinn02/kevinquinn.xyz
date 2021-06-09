@@ -25,12 +25,12 @@
         <h1>
             <div>
                 {% for i in "Kevin" %}
-                    <span>{{ i }}</span>
+                    <span>{{ i  }}</span>
                 {% endfor %}
             </div>
             <div>
                 {% for i in "Quinn" %}
-                    <span>{{ i }}</span>
+                    <span>{{ i  }}</span>
                 {% endfor %}
             </div>
         </h1>        
@@ -38,9 +38,9 @@
     <nav>
         <div class="links" id="links">
             {% for year in years %}
-                <h4>{{ year }}</h4>
+                <h4>{{ year  }}</h4>
                 {% for pic in pics %}
-                    {% if year == pic["date"] %}
+                    {% if year == pic["date"]  %}
                         <button onclick="jumpToSlide(`{{ pic['index'] }}`)"><span>{{ pic["name"] }}</span></button>
                     {% endif %}
                 {% endfor %}
@@ -49,22 +49,22 @@
     </nav>    
     {% for pic in pics %}
     <div 
-        {% if pic["date"] == pics[0]["date"] %}
+        {% if pic["index"] == 1 %}
             class="slide"
         {% else %}
             class="slide hide"
         {% endif %}
-        id="slide-{{ pic['index'] }}"
+        id="slide-{{ pic['index']  }}"
     >
         <img 
             class="bg"
             id="bg-{{ pic['index'] }}""
-            src="{{ url_for('static', filename='img/' + pic['filename']) }}" 
+            src="{{ url_for('static', filename='img/' + pic['filename'] ) }}" 
             alt="Background"
         >
-        <div class="container" id="container-{{ pic['index'] }}">
+        <div class="container" id="container-{{ pic['index']  }}">
             <div class="left">
-                <div class="text" id="text-{{ pic['index'] }}">
+                <div class="text" id="text-{{ pic['index']  }}">
                     <h2>{{ pic["name"] }}</h2>
                     <h3>{{ pic["date"] }}</h3>    
                 </div>
@@ -75,7 +75,7 @@
             </div>
             <img 
                 id="img-{{ pic['index'] }}"
-                src="{{ url_for('static', filename='img/' + pic['filename']) }}" 
+                src="{{ url_for('static', filename='img/' + pic['filename'] ) }}" 
                 alt="Art piece"
             >
         </div>
@@ -85,6 +85,9 @@
 <script>
     let currentSlideIndex = 1;
     let navOpen = false;
+
+    console.log("{{ pics }}");
+    console.log("{{ years }}");
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

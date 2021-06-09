@@ -21,4 +21,4 @@ COPY static/ ./static/
 COPY templates/ ./templates/
 
 # Specify the command to run on container start
-CMD [ "python", "./app.py" ]
+CMD [ "python", "-u", "./app.py" ]

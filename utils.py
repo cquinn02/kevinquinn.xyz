@@ -4,7 +4,7 @@ from os.path import isfile, join
 def get_pics():
     path = "./static/img/"
     filenames = [f for f in listdir(path) if isfile(join(path, f))]
-    filenames.reverse()
+    filenames.sort(reverse=True)
 
     info = []
     count = 1
@@ -18,11 +18,10 @@ def get_pics():
         count += 1
 
     years = [i["date"] for i in info]
+    years.sort(reverse=True)
     unique_years = []
     for i in range(len(years)):
-        if i == 0:
-            pass
-        if years[i] != years[i - 1]:
+        if (i == 0) or (years[i] != years[i - 1]):
             unique_years.append(years[i])
-    
+
     return info, unique_years
